@@ -8,9 +8,9 @@ development stack.
 The Hiccup formatting language allows the description of HTML syntax trees in
 a Lisp-like prefix notation based on Clojure's Vector literal denoted `[]`. In
 Hiccup one may say `[:a {:class "bar" :href "/"} "go home!" ]`, which renders
-to the equivalent html `<a href="/" class="bar"> go home! </a>`. As you can see
-this is a fairly regular translation and the Hiccup tool makes it easy to go
-from Clojure to HTML. Decomp decomposes the expanded html into the
+to the equivalent html `<a class="bar" href="/">go home!</a>`. As you can see
+this is a fairly regular translation and the Hiccup tool makes it easy to go 
+from Clojure to HTML. Decomp decomposes the expanded html into the 
 Huccup-equivalent vector stack, completing the round trip.
 
 ## Usage
