@@ -7,18 +7,18 @@ development stack.
 
 The Hiccup formatting language allows the description of HTML syntax trees in
 a Lisp-like prefix notation based on Clojure's Vector literal denoted `[]`. In
-Hiccup one may say `[:a {:class "bar" :href "/"} "go home!"" ]`, which renders
+Hiccup one may say `[:a {:class "bar" :href "/"} "go home!" ]`, which renders
 to the equivalent html `<a href="/" class="bar"> go home! </a>`. As you can see
-this is a fairly regular translation and the Hiccup tool makes it easy to go from
-Clojure to HTML. Decomp decomposes the expanded html into the Huccup-equivalent
-vector stack, completing the round trip.
+this is a fairly regular translation and the Hiccup tool makes it easy to go
+from Clojure to HTML. Decomp decomposes the expanded html into the
+Huccup-equivalent vector stack, completing the round trip.
 
 ## Usage
 
 ```clojure
 > (use 'me.arrdem.decomp.core)
 
-;; process-string wraps the application of the lexer, parser and pprinter in one easy function
+;; process-string wraps the lexer and parser in one easy function
 > (pprint (process-string
             "<foo a=\"b\"> this
                <!-- ignored -->
@@ -43,30 +43,36 @@ nil
 [[:baz {:blarrrrrrrrgh "2", :bung "1"}]]
 ```
 
-Decomp can also be used as a standalone tool able to translate files or standard input from html
-to hiccup. The standalone jar can be invoked as `$ java -jar decomp.jar foo.html` just
-as one would expect. Multiple file arguments are supported, and in the absence of file arguments
-decomp will attempt to read & process HTML from standard input.
+Decomp can also be used as a standalone tool able to translate files or standard
+input from html to hiccup. The standalone jar can be invoked as
+`$ java -jar decomp.jar foo.html` just as one would expect. Multiple file
+arguments are supported, and in the absence of file arguments decomp will
+attempt to read & process HTML from standard input.
 
 ## Limitations
 
-- Top-level comments for instance will break the parser
-- Unbalanced open and close tokens will also kill the parser
-- Parser does not do error checking to ensure that matched open and closes have equivalent values
-- Javascript (due to semicolons and {}) will likely break the parser or at least behave strangely
-- Inline CSS should work but is iffy
+This lexer/parser pair is designed to consume the sort of HTML that Hiccup is
+used to produce. This means text, links, formatted elements but not Javascript,
+or CSS <script> elements.
 
+- Top-level comments and text will break the parser
+- Unbalanced open and close tokens will also kill the parser
+- Parser does not do error checking to ensure that matched open and closes have equivalent values, it assumes balanced pairs
+
+## Todo
+- Any sort of error handling or recovery
+- Support for optionally terminated tokens such as `<li>`
+- Support for self-terminating tokens such as `<script href=... />` and `<br>`
 
 ## Get Decomp
 
 ### Leiningen:
 ```Clojure
-[me.arrdem.decomp "0.1.1"]
+[me.arrdem.decomp "0.1.3"]
 ```
 
 ### Standalone:
 [Standalone Jar](https://raw.github.com/arrdem/decomp/master/decomp.jar)
-
 
 ## License
 
