@@ -4,6 +4,8 @@
 
 (deflexer html-base
   :cclose  "</"
+  :com-open  "<!--"
+  :com-close "-->"
   :open    "<"
   :close   ">"
   :assign  "="

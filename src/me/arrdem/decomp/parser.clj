@@ -13,6 +13,8 @@
 (deftoken closetok  :close)
 (deftoken cclosetok :cclose)
 (deftoken chrtok    :chr)
+(deftoken comopen   :com-open)
+(deftoken comclose  :com-close)
 
 (def chr
   (fnp/semantics
@@ -50,11 +52,21 @@
    wordtok
    closetok))
 
+(def html-comment
+  (fnp/constant-semantics
+   (fnp/conc
+    comopen
+    (fnp/rep* (fnp/except fnp/anything comclose))
+    comclose)
+   nil))
+
 (declare html-ast)
 
 (defn reduce-strs [s]
   (reduce (fn [acc n]
-            (cond (and (string? (last acc))
+            (cond (nil? n) acc
+
+                  (and (string? (last acc))
                        (string? n))
                       (concat (butlast acc)
                               [(str (last acc) " " n)])
@@ -83,6 +95,7 @@
       (fnp/alt
        word
        chr
+       html-comment
        html-ast))
      html-closetag)
     (fn [[o v _]]
