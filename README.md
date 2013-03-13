@@ -13,6 +13,12 @@ this is a fairly regular translation and the Hiccup tool makes it easy to go
 from Clojure to HTML. Decomp decomposes the expanded html into the 
 Huccup-equivalent vector stack, completing the round trip.
 
+Decomp was hacked in a three hour sprint in one evening and is _not_ ready for
+use in production code. For serious HTML parsing, look to 
+[clj-tagsoup](https://github.com/nathell/clj-tagsoup) for the time being as
+many core HTML features are not supported by this toolkit, see 
+[Limitations](#-limitations-).
+
 ## Usage
 
 ```clojure
@@ -49,7 +55,7 @@ input from html to hiccup. The standalone jar can be invoked as
 arguments are supported, and in the absence of file arguments decomp will
 attempt to read & process HTML from standard input.
 
-## Limitations
+<h2 id="limitations"> Limitations </h2>
 This lexer/parser pair is designed to consume the sort of HTML that Hiccup is
 used to produce. This means text, links, formatted elements but not Javascript,
 or CSS script elements.
@@ -60,8 +66,8 @@ or CSS script elements.
 
 ## Todo
 - Any sort of error handling or recovery
-- Support for optionally terminated tokens such as <li>
-- Support for self-terminating tokens such as `<script href=... />` and `<br>`
+- Support for optionally terminated tokens such as the `<li>` tag
+- Support for self-terminating tokens such as `<script href=... />` and `<br />`
 
 ## Get Decomp
 
