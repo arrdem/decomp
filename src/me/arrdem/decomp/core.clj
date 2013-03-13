@@ -6,7 +6,7 @@
 
 
 (def process-string
-  (comp html build-ast))
+  (comp build-ast html))
 
 (defn -main
   "The only valid arguments are targeted files. If there are no targeted files
