@@ -50,18 +50,17 @@ arguments are supported, and in the absence of file arguments decomp will
 attempt to read & process HTML from standard input.
 
 ## Limitations
-
 This lexer/parser pair is designed to consume the sort of HTML that Hiccup is
 used to produce. This means text, links, formatted elements but not Javascript,
-or CSS <script> elements.
+or CSS script elements.
 
 - Top-level comments and text will break the parser
 - Unbalanced open and close tokens will also kill the parser
-- Parser does not do error checking to ensure that matched open and closes have equivalent values, it assumes balanced pairs
+- Parser does not do error checking, </foo> can close <bar>
 
 ## Todo
 - Any sort of error handling or recovery
-- Support for optionally terminated tokens such as `<li>`
+- Support for optionally terminated tokens such as <li>
 - Support for self-terminating tokens such as `<script href=... />` and `<br>`
 
 ## Get Decomp
