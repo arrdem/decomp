@@ -1,5 +1,5 @@
 (defproject me.arrdem.decomp "0.1.1"
-  :description "an HTML to Compojure translator"
+  :description "an HTML to Hiccup translator"
   :url "http://github.com/arrdem/decomp"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
