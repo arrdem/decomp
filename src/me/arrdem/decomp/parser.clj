@@ -16,15 +16,13 @@
 (deftoken comopen   :com-open)
 (deftoken comclose  :com-close)
 
-(def chr
-  (fnp/semantics
-   chrtok
-   (fn [c] (:val c))))
+(defmacro defwrapper [sym tok]
+  `(def ~sym (fnp/semantics ~tok (fn [c#] (:val c#)))))
 
-(def word
-  (fnp/semantics
-   wordtok
-   (fn [c] (:val c))))
+(defwrapper chr    chrtok)
+(defwrapper word   wordtok)
+(defwrapper string strtok)
+
 
 (def html-kv-pair
   (fnp/semantics
@@ -94,6 +92,7 @@
      (fnp/rep*
       (fnp/alt
        word
+       string
        chr
        html-comment
        html-ast))
@@ -102,8 +101,10 @@
       (apply vector (concat o (reduce-strs v)))))))
 
 (defn build-ast [toks]
-  (fnp/rule-match
-   html-ast
-   #(println "FAILED: " %)
-   #(println "LEFTOVER: " %2)
-   {:remainder toks}))
+  (apply vector
+         (concat [:html {}]
+                 (fnp/rule-match
+                  html-ast
+                  #(println "FAILED: " %)
+                  #(println "LEFTOVER: " %2)
+                  {:remainder toks}))))
